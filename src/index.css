@@ -12,4 +12,5 @@ body {
   min-width: 100vw;
   min-height: 100vh;
   padding: 0;
+  background-color: rgb(226, 226, 226);
 }

@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import { Root } from './routes'
+import { ErrorPage } from './routes'
+import { Index } from './routes'
 import { 
   createBrowserRouter, 
   RouterProvider 
@@ -12,12 +14,20 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
-    children: [
-      {
-        path: 'apartados',
-        element: <h2>Apartados</h2>
-      }
-    ]
+    errorElement: <ErrorPage />,
+    children: [{
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          index: true,
+          element: <Index />
+        },
+        {
+          path: 'apartados',
+          element: <h2>Apartados</h2>
+        }
+      ]
+    }]
   }
 ]);
 
