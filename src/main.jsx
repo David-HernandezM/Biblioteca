@@ -3,11 +3,19 @@ import ReactDOM from 'react-dom/client'
 
 import { Root } from './routes'
 import { ErrorPage } from './routes'
-import { Index } from './routes'
+import { 
+  Index,
+  indexLoader
+} from './routes'
+import { BookInfo, bookInfoLoader } from './routes'
 import { 
   createBrowserRouter, 
   RouterProvider 
 } from 'react-router-dom'
+
+import { UserDataProvider } from './app/Context'
+import { SnackbarProvider } from 'notistack'
+
 import './index.css'
 
 const router = createBrowserRouter([
@@ -20,11 +28,17 @@ const router = createBrowserRouter([
       children: [
         {
           index: true,
-          element: <Index />
+          element: <Index />,
+          loader: indexLoader
         },
         {
           path: 'apartados',
           element: <h2>Apartados</h2>
+        },
+        {
+          path: ':bookId',
+          element: <BookInfo />,
+          loader: bookInfoLoader
         }
       ]
     }]
@@ -33,6 +47,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <SnackbarProvider maxSnack={10} anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+      <UserDataProvider>
+        <RouterProvider router={router} />
+      </UserDataProvider>
+    </SnackbarProvider>
   </React.StrictMode>,
 );

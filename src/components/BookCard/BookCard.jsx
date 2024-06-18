@@ -1,14 +1,6 @@
 import PropTypes from 'prop-types'
 import './BookCard.css';
 
-// export const BookCard = ({ 
-//   image, 
-//   bookTitle, 
-//   bookAutor,
-//   quantity = null,
-//   numBorrowed = null,
-//   child
-// }) => {
 export const BookCard = props => {
   return (
     <div className='book-card'>
