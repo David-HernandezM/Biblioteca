@@ -1,0 +1,20 @@
+.index {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.index .search-bar {
+    margin: 10px 0 0 10px;
+}
+
+.index__books-cards {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    height: 900px;
+    padding: 25px 10px 30px 30px;
+    gap: 30px 100px;
+    max-height: 55.5rem;
+    overflow-y: auto;
+}

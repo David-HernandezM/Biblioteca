@@ -56,7 +56,7 @@ export const loader = async () => {
 
     // Parte donde se hacen pruebas 
     try {
-        const serverResponse = await mockAxios.get('http://localhost:5000/books/');
+        const serverResponse = await mockAxios.get('books/');
         const { data } = serverResponse;
 
         return data.map((bookInfo) => {
