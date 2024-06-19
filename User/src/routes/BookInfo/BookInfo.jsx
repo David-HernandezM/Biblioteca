@@ -99,6 +99,9 @@ export const loader = async ({ params }) => {
     // vuelve a checar la informacion del libro.
     // const book = getBook(); 
 
+
+    
+
     // mockAxios.get('/ruta/simulada')
     //     .then(response => {
     //         console.log('Lo que se optubo;');
