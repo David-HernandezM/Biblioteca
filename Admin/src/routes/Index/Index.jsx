@@ -98,6 +98,7 @@ export const loader = async () => {
 }
 
 
+
 export const Index = () => {
     const navigate = useNavigate();
     const booksData = useLoaderData();
