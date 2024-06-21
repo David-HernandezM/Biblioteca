@@ -9,3 +9,17 @@ export {
     UserLoginMessage
 } from "./ModalMessages";
 export { NoBooksMessage } from "./NoBooksMessage/NoBooksMessage";
+
+
+import React from 'react';
+import EditBook from './EditarBotones/EditarBotones';
+
+const App = () => {
+  return (
+    <div>
+      <EditBook />
+    </div>
+  );
+};
+
+export default App;
