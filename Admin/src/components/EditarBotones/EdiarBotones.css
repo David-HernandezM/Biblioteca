@@ -1,0 +1,54 @@
+/* src/EditBook.css */
+
+.edit-book-container {
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .input-field {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .image-upload-container {
+    margin-bottom: 10px;
+  }
+  
+  .file-input {
+    display: none;
+  }
+  
+  .file-input-label {
+    cursor: pointer;
+    border: 1px dotted black;
+    padding: 20px;
+    display: block;
+  }
+  
+  .image-preview {
+    width: 100%;
+  }
+  
+  .cancel-button,
+  .save-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .cancel-button {
+    background-color: blue;
+    margin-right: 10px;
+  }
+  
+  .save-button {
+    background-color: green;
+  }
+  
