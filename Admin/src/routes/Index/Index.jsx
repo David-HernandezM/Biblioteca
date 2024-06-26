@@ -1,14 +1,14 @@
 import { useState, useContext } from "react";
 import { useNavigate, useLoaderData } from "react-router-dom";
-import { 
+import {
     SearchBar,
     BookCard,
-    MessageModal, 
+    MessageModal,
     ReserveBookModalMessage,
     UserLoginMessage,
     NoBooksMessage
-} from "../../components";
-import { Button } from "@mui/material";
+} from "../../components/App";
+import { Box, Button } from "@mui/material";
 import { userDataContext } from "../../app/Context";
 import axios from "axios";
 
@@ -17,6 +17,7 @@ import './Index.css';
 // import { booksData } from "../../app/booksdata";
 
 import { booksData as booksDataTest } from "../../app/booksdata";
+import { MediaCard } from "../../components";
 
 // Se crea una instancia de axios para hacer pruebas
 // de conexion con el backend
@@ -39,17 +40,17 @@ mockAxios.interceptors.request.use(
 // respuesta, y modificaremos el campo de cuando se mando
 // la respuesta y cuando duro en procesarse la peticion
 mockAxios.interceptors.response.use(
-function (res) {
-    res.config.time.endTime = new Date();
+    function (res) {
+        res.config.time.endTime = new Date();
 
-    res.data = booksDataTest;
+        res.data = booksDataTest;
 
-    res.duration = res.config.time.endTime - res.config.time.startTime;
-    return res;
-},
-(err) => {
-    return Promise.reject(err);
-}
+        res.duration = res.config.time.endTime - res.config.time.startTime;
+        return res;
+    },
+    (err) => {
+        return Promise.reject(err);
+    }
 );
 
 export const loader = async () => {
@@ -98,88 +99,49 @@ export const loader = async () => {
 }
 
 
+
 export const Index = () => {
     const navigate = useNavigate();
-    const booksData = useLoaderData();
+    const opciones = ['Agregar', 'Prestar', 'Devolver', 'Eliminar', 'Editar'];
 
-    const { userId } = useContext(userDataContext);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [loginModalIsOpen, setLoginModalIsOpen] = useState(false);
-    const [bookData, setBookData] = useState({
-        bookId: '',
-        bookTitle: ''
-    });
-
-    const handleCloseModal = () => setModalIsOpen(false);
-    const handleLoginCloseModal = () => setLoginModalIsOpen(false);
+    const redireccionar = (ruta) => {
+        switch (ruta) {
+            case 'Agregar':
+                navigate('/agregar-libro');
+                break;
+            case 'Prestar':
+                navigate('/prestar-libro');
+                break;
+            case 'Devolver':
+                navigate('/devolver-libro');
+                break;
+            case 'Eliminar':
+                navigate('/eliminar-libro');
+                break;
+            case 'Editar':
+                navigate('/editar-libro');
+                break;
+            default:
+                break;
+        }
+    }
 
     return (
         <div className='index'>
-            <MessageModal openModal={loginModalIsOpen} handleModalClose={handleLoginCloseModal}>
-                <UserLoginMessage
-                    onLoginModalClose={handleLoginCloseModal}
-                />
-            </MessageModal>
-            <MessageModal openModal={modalIsOpen} handleModalClose={handleCloseModal}>
-                <ReserveBookModalMessage 
-                    bookId={bookData.bookId} 
-                    bookTitle={bookData.bookTitle}
-                    onCloseModal={handleCloseModal}
-                />
-            </MessageModal>
-            <SearchBar />
-            <div className='index__books-cards'>
-                {
-                    booksData.length > 0 ? (
-                        booksData.map((data) => {
-                            return (
-                                <BookCard
-                                    key={data.id}
-                                    bookTitle={data.title}
-                                    image={data.image}
-                                    bookAutor={data.autor}
-                                    quantity={data.quantity}
-                                >
-                                    <>
-                                        <Button 
-                                            variant='contained'
-                                            style={{width: "40%"}}
-                                            onClick={() => {
-                                                navigate(''+data.id);
-                                            }}
-                                        >
-                                            Detalles
-                                        </Button>
-                                        <Button 
-                                            variant='contained' 
-                                            color='success'
-                                            style={{width: "40%"}}
-                                            disabled={data.quantity == 0}
-                                            onClick={() => {
-                                                if (!userId) {
-                                                    setLoginModalIsOpen(true);
-                                                    return;
-                                                }
-                                                setModalIsOpen(true);
-                                                setBookData({
-                                                    bookId: data.id,
-                                                    bookTitle: data.title
-                                                });
-                                                // navigate("djfjs3/reserve")
-                                            }}
-                                        >
-                                            Reservar
-                                        </Button>
-                                    </>
-                                </BookCard>
-                            );
-                        })
-                    ) : (
-                        <NoBooksMessage />
+            <h1>Biblioteca</h1>
+            <div className='index-options'>
+                {opciones.map((opcion, index) => {
+                    return (
+                        <Box key={index} onClick={() => redireccionar(opcion)} sx={{ cursor: 'pointer' }} >
+                            <MediaCard name={opcion} />
+                        </Box>
                     )
+                })
                 }
             </div>
         </div>
     );
 };
+
+
 
