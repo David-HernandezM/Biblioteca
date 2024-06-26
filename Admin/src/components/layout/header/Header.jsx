@@ -1,5 +1,3 @@
-import { NavOptions } from "../../NavOptions/NavOptions";
-
 import './Header.css';
 
 export const Header = () => {
@@ -10,7 +8,6 @@ export const Header = () => {
             >
                 Biblioteca
             </h1>
-            <NavOptions />
         </header>
     );
 }

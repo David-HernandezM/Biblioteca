@@ -1,18 +1,14 @@
-.index {
+.addbook {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.indexTitle {
-    padding-left: 30px;
-}
-
-.index .search-bar {
+.addbook .search-bar {
     margin: 10px 0 0 10px;
 }
 
-.index__books-cards {
+.addbook__books-cards {
     display: flex;
     flex-wrap: wrap;
     overflow: hidden;
@@ -23,9 +19,8 @@
     overflow-y: auto;
 }
 
-.botones-container {
+.addbook-buttons-admin {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 20px;
-  }
+    gap: 20px;
+    padding: 10px;
+}

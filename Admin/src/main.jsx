@@ -5,9 +5,10 @@ import { Root } from './routes'
 import { ErrorPage } from './routes'
 import { 
   Index,
-  indexLoader
 } from './routes'
 import { BookInfo, bookInfoLoader } from './routes'
+import { AddBook, addBookLoader} from './routes'
+
 import { 
   createBrowserRouter, 
   RouterProvider 
@@ -29,7 +30,11 @@ const router = createBrowserRouter([
         {
           index: true,
           element: <Index />,
-          loader: indexLoader
+        },
+        {
+          path: 'addBook',
+          element: <AddBook />,
+          loader: addBookLoader
         },
         {
           path: 'apartados',

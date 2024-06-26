@@ -23,3 +23,10 @@
     justify-content: space-between;
     width: 290px;
 }
+
+.user-login-message__form__loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 290px;
+}
