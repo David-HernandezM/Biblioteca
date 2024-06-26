@@ -39,6 +39,14 @@ const router = createBrowserRouter([
           path: ':bookId',
           element: <BookInfo />,
           loader: bookInfoLoader
+        },
+        {
+          path: '/agregar-libro',
+          element: <AgregarLibro />
+        },
+        {
+          path: '/editar-libro',
+          element: <EditarLibro />
         }
       ]
     }]
