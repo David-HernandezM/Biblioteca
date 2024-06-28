@@ -12,7 +12,7 @@ import { userDataContext } from "../../app/Context";
 import { useSnackbar } from "notistack";
 import axios from "axios";
 
-import './AddBook.css';
+import '../AddBook/AddBook.css';
 
 // import { booksData } from "../../app/booksdata";
 
@@ -99,7 +99,7 @@ export const loader = async () => {
 }
 
 
-export const AddBook = () => {
+export const DeleteBook = () => {
     const navigate = useNavigate();
     const booksData = useLoaderData();
     const { enqueueSnackbar } = useSnackbar();
@@ -110,9 +110,9 @@ export const AddBook = () => {
     const handleLoginCloseModal = () => setLoginModalIsOpen(false);
 
 
-    const addOneBook = (bookId) => {
+    const deleteOne = (bookId) => {
         return new Promise((resolve, reject) => {
-            axios.put(`http://localhost:5000/books/addCopy/${bookId}`)
+            axios.put(`http://localhost:5000/books/deleteCopy/${bookId}`)
             .then(() => {
                 resolve();
             })
@@ -132,6 +132,28 @@ export const AddBook = () => {
         }
     }
 
+    const deleteBook = (bookId) => {
+        return new Promise((resolve, reject) => {
+            axios.delete(`http://localhost:5000/books/${bookId}`)
+            .then(() => {
+                resolve();
+            })
+            .catch(() => {
+                reject();
+            });
+        });
+    }
+
+    const handleDeleteBook = async (bookId) => {
+        try { 
+            await deleteBook(bookId);
+            enqueueSnackbar('Se elimino el libro con exito!', {variant: 'success'});
+            navigate('/deletebook');
+        } catch(e) {
+            enqueueSnackbar('Error al eliminar libro!', { variant: 'error'});
+        }
+    }
+
     return (
         <div className='addbook'>
             <MessageModal openModal={loginModalIsOpen} handleModalClose={handleLoginCloseModal}>
@@ -139,14 +161,6 @@ export const AddBook = () => {
                     onLoginModalClose={handleLoginCloseModal}
                 />
             </MessageModal>
-            <div className="addbook-buttons-admin">
-                <Button
-                    variant='contained'
-                    onClick={() => navigate('addNewBook')}
-                >
-                    Nuevo    
-                </Button>
-            </div>
 
             <SearchBar />
             
@@ -163,15 +177,26 @@ export const AddBook = () => {
                                     quantity={data.quantity}
                                 >
                                     <>
-                                        {/* <Button 
+                                        <Button 
                                             variant='contained'
                                             style={{width: "40%"}}
-                                            onClick={() => {
-                                                navigate(''+data.id);
+                                            onClick={async () => {
+                                                if (data.quantity == 0) {
+                                                    enqueueSnackbar('No se tienen copias!', { variant: 'error' });
+                                                    return;
+                                                }
+
+                                                try {
+                                                    await deleteOne(data.id);
+                                                    enqueueSnackbar('Se elimino una copia!');
+                                                    navigate('/deletebook');
+                                                } catch(error) {
+                                                    enqueueSnackbar('Hubo un error al eliminar copia!', {variant: 'success'});
+                                                }
                                             }}
                                         >
-                                            Detalles
-                                        </Button> */}
+                                            Eliminar 1
+                                        </Button>
                                         <Button 
                                             variant='contained' 
                                             color='success'
@@ -188,10 +213,10 @@ export const AddBook = () => {
                                                 // });
                                                 // navigate("djfjs3/reserve")
 
-                                                handleIncrementBook(data.id);
+                                                await handleDeleteBook(data.id);
                                             }}
                                         >
-                                            Agregar +
+                                            Eliminar libro
                                         </Button>
                                     </>
                                 </BookCard>
@@ -205,4 +230,3 @@ export const AddBook = () => {
         </div>
     );
 };
-

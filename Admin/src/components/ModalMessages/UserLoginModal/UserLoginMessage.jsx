@@ -102,7 +102,7 @@ export const UserLoginMessage = props => {
             setDoingCall(false);
             props.onLoginModalClose();
         } catch (error) {
-            enqueueSnackbar('Se ini!', { variant: 'error' });
+            enqueueSnackbar('Usuario o contraseña incorrectos!', { variant: 'error' });
             setDoingCall(false);
         }
     };

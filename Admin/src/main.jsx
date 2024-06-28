@@ -8,11 +8,14 @@ import {
 } from './routes'
 import { BookInfo, bookInfoLoader } from './routes'
 import { AddBook, addBookLoader} from './routes'
+import { DeleteBook } from './routes'
 
 import { 
   createBrowserRouter, 
   RouterProvider 
 } from 'react-router-dom'
+
+import { AgregarLibro } from './routes'
 
 import { UserDataProvider } from './app/Context'
 import { SnackbarProvider } from 'notistack'
@@ -32,8 +35,13 @@ const router = createBrowserRouter([
           element: <Index />,
         },
         {
-          path: 'addBook',
+          path: 'addbook',
           element: <AddBook />,
+          loader: addBookLoader
+        },
+        {
+          path: 'deletebook',
+          element: <DeleteBook />,
           loader: addBookLoader
         },
         {
@@ -44,6 +52,10 @@ const router = createBrowserRouter([
           path: ':bookId',
           element: <BookInfo />,
           loader: bookInfoLoader
+        },
+        {
+          path: 'addbook/addNewBook',
+          element: <AgregarLibro />
         }
       ]
     }]
